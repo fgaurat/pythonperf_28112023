@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import time
+import threading
 
 def download(url_log):
     print(url_log)
@@ -19,9 +20,15 @@ def main():
 
     all_href = [link['href'] for link in soup.find_all('a') if link['href'].endswith('.log')]
 
+    all_threads = []
     for log in all_href:
         url_log = f"{url}{log}"
-        download(url_log)
+        th = threading.Thread(target=download,args=[url_log])
+        th.start()
+        all_threads.append(th)
+    
+    for th in all_threads:
+        th.join()
     
     end = time.perf_counter()
 
