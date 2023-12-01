@@ -5,7 +5,13 @@ class UserDAO:
     def __init__(self,db_file) -> None:
         self.__con = sqlite3.connect(db_file)
 
-    
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exc):
+        self.__con.close()
+
+
     def findAll(self):
         # users = []
         cur = self.__con.cursor()
@@ -28,4 +34,5 @@ VALUES(?,?,?,?,?)"""
 
         
     def __del__(self):
-        self.__con.close()
+        if self.__con:
+            self.__con.close()

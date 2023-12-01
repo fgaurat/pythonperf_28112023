@@ -6,6 +6,13 @@ def filterMale(userGen):
         if user.gender == "Male":
             yield user 
 def main():
+    # dao = UserDAO('./users_db.db')
+
+    with UserDAO('./users_db.db') as dao:
+        users = dao.findAll()
+
+
+def main01():
     dao = UserDAO('./tp06/users_db.db')
 
     users = dao.findAll()
