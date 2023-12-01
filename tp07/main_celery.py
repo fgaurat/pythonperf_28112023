@@ -15,7 +15,7 @@ def main():
 
     all_href = [url+link['href'] for link in soup.find_all('a') if link['href'].endswith('.log')]
 
-
+ 
     # download = signature('celery_task.download')
     # r = download.delay(all_href[0])
     # result = r.get()
